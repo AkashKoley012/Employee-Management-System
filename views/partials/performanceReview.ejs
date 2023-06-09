@@ -1,0 +1,57 @@
+<div class="d-flex">
+    <div class="card m-3" style="width: 18rem">
+        <img src="/img/img_avatar0.png" class="card-img-top" alt="..." />
+        <div class="performance text-center position-absolute" style="font-size: 1.2rem; top: 15.5rem; left: 4.5rem">
+            <i class="fa-<% if (user.rating / (user.feedbackCount === 0 ? 1 :user.feedbackCount) > 0) { %>solid<% } else { %>regular<% } %> fa-star text-warning"></i>
+            <i class="fa-<% if (user.rating / (user.feedbackCount === 0 ? 1 :user.feedbackCount) - 1 > 0) { %>solid<% } else { %>regular<% } %> fa-star text-warning"></i>
+            <i class="fa-<% if (user.rating / (user.feedbackCount === 0 ? 1 :user.feedbackCount) - 2 > 0) { %>solid<% } else { %>regular<% } %> fa-star text-warning"></i>
+            <i class="fa-<% if (user.rating / (user.feedbackCount === 0 ? 1 :user.feedbackCount) - 3 > 0) { %>solid<% } else { %>regular<% } %> fa-star text-warning"></i>
+            <i class="fa-<% if (user.rating / (user.feedbackCount === 0 ? 1 :user.feedbackCount) - 4 > 0) { %>solid<% } else { %>regular<% } %> fa-star text-warning"></i>
+        </div>
+        <div class="card-body text-center">
+            <h5 class="card-title"><%= user.name %></h5>
+            <h6 class="card-subtitle mb-2 text-muted"><%= user.email %></h6>
+        </div>
+    </div>
+    <div class="my-3" style="border: 15px groove cornsilk; width: 80%">
+        <h1 class="text-center">Reviews</h1>
+        <div class="container hide-scroolbar" style="height: 20rem; overflow-y: scroll">
+            <% for( let i = 0; i < feedbacks.length; i++ ) { %>
+            <div class="row">
+                <h5 class="col-2"><%= feedbacks[i].reviewerId.name %></h5>
+                <div class="text-center col-8">
+                    <i class="fa-<% if (feedbacks[i].rating > 0) { %>solid<% } else { %>regular<% } %> fa-star text-warning"></i>
+                    <i class="fa-<% if (feedbacks[i].rating - 1 > 0) { %>solid<% } else { %>regular<% } %> fa-star text-warning"></i>
+                    <i class="fa-<% if (feedbacks[i].rating - 2 > 0) { %>solid<% } else { %>regular<% } %> fa-star text-warning"></i>
+                    <i class="fa-<% if (feedbacks[i].rating - 3 > 0) { %>solid<% } else { %>regular<% } %> fa-star text-warning"></i>
+                    <i class="fa-<% if (feedbacks[i].rating - 4 > 0) { %>solid<% } else { %>regular<% } %> fa-star text-warning"></i>
+                </div>
+                <div class="text-secondary" style="text-align: justify"><%= feedbacks[i].content %></div>
+            </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+<div class="d-flex">
+    <% for( let i = 0; i < reviews.length; i++ ) { %>
+    <div class="card mx-3" style="width: 18rem">
+        <img src="/img/img_avatar<%= i%2 %>.png" class="card-img-top" alt="..." />
+        <div class="performance text-center position-absolute" style="font-size: 1.2rem; top: 15.5rem; left: 4.5rem">
+            <i id="rating-1" class="fa-regular fa-star text-warning cursor-pointer" onclick="rate(1)"></i>
+            <i id="rating-2" class="fa-regular fa-star text-warning cursor-pointer" onclick="rate(2)"></i>
+            <i id="rating-3" class="fa-regular fa-star text-warning cursor-pointer" onclick="rate(3)"></i>
+            <i id="rating-4" class="fa-regular fa-star text-warning cursor-pointer" onclick="rate(4)"></i>
+            <i id="rating-5" class="fa-regular fa-star text-warning cursor-pointer" onclick="rate(5)"></i>
+        </div>
+        <div class="card-body text-center">
+            <h5 class="card-title"><%= reviews[i].name %></h5>
+            <h6 class="card-subtitle mb-2 text-muted"><%= reviews[i].email %></h6>
+        </div>
+        <form action="/performance/feedback/<%= reviews[i].id %>" method="post" class="input-group">
+            <input type="number" name="rating" id="rating" hidden value="0" />
+            <input type="text" class="form-control" placeholder="Review Message" aria-label="Recipient's username" aria-describedby="button-addon2" name="content" />
+            <button class="btn btn-outline-success" type="submit" id="button-addon2">Send</button>
+        </form>
+    </div>
+    <% } %>
+</div>

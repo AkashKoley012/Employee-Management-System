@@ -1,0 +1,4 @@
+<body class="hide-scroolbar">
+    <%- include('partials/navbar.ejs') %>
+    <div class="d-flex"><%- include('partials/profileCard.ejs') %> <% if (path.includes('/users')) { %> <%- include('partials/addCard.ejs') %> <% } %></div>
+</body>
